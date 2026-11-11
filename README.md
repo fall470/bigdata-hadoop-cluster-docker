@@ -113,6 +113,4 @@ Le guide pas à pas (import des données, lancement des jobs, tests de panne) es
 
 ## Auteur
 
-**Adama Fall** · Ing1 Systèmes d'Information et Données
-
-Un rapport complet (configuration, captures d'écran, analyse des pannes) est disponible dans le dépôt. Un outil d'IA (Claude) a été utilisé pour la structuration du rapport et la relecture du code.
+**Adama Fall** ·
