@@ -1,0 +1,52 @@
+<configuration>
+
+    <!-- ============================================================ -->
+    <!-- Réplication et taille de bloc                                -->
+    <!-- ============================================================ -->
+
+    <!-- Chaque bloc est copié sur 2 DataNodes -->
+    <property>
+        <name>dfs.replication</name>
+        <value>2</value>
+    </property>
+
+    <!-- Bloc de 1 Mio = 1 048 576 octets  -->
+    <property>
+        <name>dfs.blocksize</name>
+        <value>1048576</value>
+    </property>
+
+    <!-- ============================================================ -->
+    <!-- Stockage (monté sur des volumes Docker nommés dans le compose) -->
+    <!-- ============================================================ -->
+
+    <!-- Métadonnées du NameNode -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///tmp/hadoop-root/dfs/name</value>
+    </property>
+
+    <!-- Blocs de données des DataNodes -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///tmp/hadoop-root/dfs/data</value>
+    </property>
+
+    <!-- ============================================================ -->
+    <!-- Détection de panne (Partie D)                                -->
+    <!-- Délai = 2 x 5 s + 10 x 3 s = 40 s   -->
+    <!-- ============================================================ -->
+
+    <!-- Intervalle entre deux heartbeats d'un DataNode (secondes) -->
+    <property>
+        <name>dfs.heartbeat.interval</name>
+        <value>3</value>
+    </property>
+
+    <!-- Intervalle de vérification des heartbeats par le NameNode (ms) -->
+    <property>
+        <name>dfs.namenode.heartbeat.recheck-interval</name>
+        <value>5000</value>
+    </property>
+
+</configuration>

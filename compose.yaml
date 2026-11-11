@@ -1,0 +1,98 @@
+services:
+
+  # ---------------- HDFS ----------------
+
+  namenode:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-namenode
+    hostname: namenode
+    user: root
+    command:
+      - bash
+      - -c
+      - "[ -d /tmp/hadoop-root/dfs/name/current ] || hdfs namenode -format -force -nonInteractive; hdfs namenode"
+    ports:
+      - "9870:9870"
+    volumes:
+      - namenode_data:/tmp/hadoop-root/dfs/name
+      - ./data:/data
+      - ./mapreduce:/mapreduce
+
+  datanode1:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-datanode1
+    hostname: datanode1
+    user: root
+    command: ["hdfs", "datanode"]
+    depends_on:
+      - namenode
+    volumes:
+      - datanode1_data:/tmp/hadoop-root/dfs/data
+
+  datanode2:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-datanode2
+    hostname: datanode2
+    user: root
+    command: ["hdfs", "datanode"]
+    depends_on:
+      - namenode
+    volumes:
+      - datanode2_data:/tmp/hadoop-root/dfs/data
+
+  datanode3:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-datanode3
+    hostname: datanode3
+    user: root
+    command: ["hdfs", "datanode"]
+    depends_on:
+      - namenode
+    volumes:
+      - datanode3_data:/tmp/hadoop-root/dfs/data
+
+  # ---------------- YARN ----------------
+
+  resourcemanager:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-resourcemanager
+    hostname: resourcemanager
+    user: root
+    command: ["yarn", "resourcemanager"]
+    ports:
+      - "8088:8088"
+    depends_on:
+      - namenode
+
+  nodemanager1:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-nodemanager1
+    hostname: nodemanager1
+    user: root
+    command: ["yarn", "nodemanager"]
+    depends_on:
+      - resourcemanager
+
+  nodemanager2:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-nodemanager2
+    hostname: nodemanager2
+    user: root
+    command: ["yarn", "nodemanager"]
+    depends_on:
+      - resourcemanager
+
+  nodemanager3:
+    image: hadoop-python:3.4.1
+    container_name: hadoop-nodemanager3
+    hostname: nodemanager3
+    user: root
+    command: ["yarn", "nodemanager"]
+    depends_on:
+      - resourcemanager
+
+volumes:
+  namenode_data:
+  datanode1_data:
+  datanode2_data:
+  datanode3_data:

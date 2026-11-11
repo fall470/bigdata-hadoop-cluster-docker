@@ -1,0 +1,4 @@
+﻿Accessories	450822000
+Electronics	4485705000
+Furniture	681075500
+Stationery	16725250
